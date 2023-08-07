@@ -12,6 +12,20 @@ function searchHandler(){
     let userInput = document.querySelector('input')
     cityName = userInput.value
     getCoords(cityName)
+    searchHistory(cityName)
+
+}
+
+function searchHistory(cityName){
+   let recentSearch = cityName
+   localStorage.setItem('history', recentSearch)
+   let pEl = document.createElement('p')
+   let historyContainer = document.querySelector('#history-container')
+   pEl.textContent = recentSearch
+   pEl.setAttribute('id', cityName)
+   historyContainer.append(pEl)
+   console.log(recentSearch)
+   
 
 }
 function getApi(requestedUrl){
@@ -86,6 +100,11 @@ function populatePage(data){
     
 
 }
+// //WIP trying to get ID of item clicked
+// document.addEventListener('click', function{
+//     this.event.stopPropagation
+
+// })
 //forcast in 3 hour increments, need to convert to 8 hours at time, start at 0, jump to 8
 
 search.addEventListener('click', searchHandler)
