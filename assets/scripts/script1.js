@@ -84,7 +84,7 @@ function populatePage(data) {
 }
 
 function getForecast(lat, lon) {
-    let urlByLatLon = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`;
+    let urlByLatLon = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`;
     
     fetch(urlByLatLon)
     .then(function(response) {
@@ -93,23 +93,14 @@ function getForecast(lat, lon) {
     .then(function(data) {
         let ulEl = document.createElement('ul');
         let forecastContainer = document.getElementById('forecast-container');
-        let dayTracker = 1
         
         for(let i = 0; i < data.list.length; i += 8){
             let liEl = document.createElement('li');
-            if (dayTracker > 1){
-            liEl.textContent = `Tempurature ${dayTracker} days from now :${data.list[i].main.temp}`;  
-            }
-            else{
-                liEl.textContent = `Tempurature ${dayTracker} day from now :${data.list[i].main.temp}`; 
-
-            }
+            liEl.textContent = data.list[i].main.temp;  // I've assumed you might want to display the temperature, but change as needed
             ulEl.appendChild(liEl);
-            dayTracker ++
         }
         forecastContainer.appendChild(ulEl);
     });
 }
 
 search.addEventListener('click', searchHandler);
-
