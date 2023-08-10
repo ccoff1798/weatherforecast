@@ -1,0 +1,22 @@
+body{
+    display: flex;
+    background-color: aqua;
+    flex-direction: column;
+}
+
+#history-container
+{
+    display: flex;
+    flex direction: row;    
+}
+
+#history-container p{
+    border: 5%;
+    padding: 2%;
+}
+
+#forecast-container
+{
+    flex-direction: row;
+    margin: auto;
+}
