@@ -35,6 +35,7 @@ function updateHistoryUI(history) {
     });
 }
 
+//Gets coordinates from city name
 function getCoords(cityName) {
     fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${apiKey}`)
         .then(function(response) {
@@ -48,6 +49,7 @@ function getCoords(cityName) {
         });
 }
 
+//gets current weather from coords
 function getWeather(lat, lon) {
     fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`)
     .then(function(response) {
@@ -59,6 +61,7 @@ function getWeather(lat, lon) {
     });
 }
 
+//Appends  weather info to page
 function populateWeather(data) {
     let currentTemp = data.main.temp;
     let humidity = data.main.humidity;
@@ -68,6 +71,7 @@ function populateWeather(data) {
     let icon = data.weather[0].icon;
 
     const pEl = document.createElement('p');
+    const pEl2 = document.createElement('p');
     const ulEl = document.createElement('ul');
     const liEl1 = document.createElement('li');
     const liEl2 = document.createElement('li');
@@ -75,7 +79,9 @@ function populateWeather(data) {
     const liEl4 = document.createElement('li');
 
     pEl.textContent = currentTemp;
+    pEl2.textContent = cityName;
     currentWeatherContainer.appendChild(pEl);
+    currentWeatherContainer.appendChild(pEl2)
 
     liEl1.textContent = `Humidity: ${humidity}`;
     ulEl.appendChild(liEl1);
@@ -118,7 +124,7 @@ function getForecast(lat, lon) {
             forecastItemContainer.classList.add('forecast-item');
             
             const pDateTime = document.createElement('p');
-            pDateTime.textContent = forecastDateTime.toLocaleString(); 
+            pDateTime.textContent = forecastDateTime.toLocaleString() + ` ${cityName}`
             forecastItemContainer.appendChild(pDateTime);
             
             const ulEl = document.createElement('ul');
